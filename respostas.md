@@ -12,8 +12,8 @@ Turma: TF - Engenharia de Controle e Automação
 
 Considere o trecho:
 
-` int x = 10; `
-` int *p = &x; `
+` int x = 10; ` <br>
+` int *p = &x; ` <br>
 
 - O que está armazenado em x?
 - O que está armazenado em p?
@@ -43,14 +43,14 @@ Resposta: Após a instrução, o novo valor alocado no espaço de memória que p
 
 Considere o programa:
 
-` int n = 7; `
-` int *ptr = &n; `
+` int n = 7; ` <br>
+` int *ptr = &n; ` <br>
 
-` cout << n << endl; `
-` cout << &n << endl; `
-` cout << ptr << endl; `
-` cout << &ptr << endl; `
-` cout << *ptr << endl; `
+` cout << n << endl; ` <br>
+` cout << &n << endl; ` <br>
+` cout << ptr << endl; ` <br>
+` cout << &ptr << endl; ` <br>
+` cout << *ptr << endl; ` <br>
 
 - Indique quais linhas exibem um valor inteiro e quais exibem um endereço de memória.
 - Quais expressões devem produzir o mesmo endereço?
