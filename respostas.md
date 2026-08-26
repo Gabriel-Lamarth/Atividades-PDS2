@@ -12,8 +12,8 @@ Turma: TF - Engenharia de Controle e Automação
 
 Considere o trecho:
 
-`int x = 10;
-int *p = &x; `
+` int x = 10; `
+` int *p = &x; `
 
 - O que está armazenado em x?
 - O que está armazenado em p?
@@ -40,6 +40,21 @@ Resposta: Após a instrução, o novo valor alocado no espaço de memória que p
 ---
 
 ## Exercício 2 - Conteúdo da variável e conteúdo apontado
+
+Considere o programa:
+
+` int n = 7; `
+` int *ptr = &n; `
+
+` cout << n << endl; `
+` cout << &n << endl; `
+` cout << ptr << endl; `
+` cout << &ptr << endl; `
+` cout << *ptr << endl; `
+
+- Indique quais linhas exibem um valor inteiro e quais exibem um endereço de memória.
+- Quais expressões devem produzir o mesmo endereço?
+- Por que &ptr não representa o endereço de n?
 
 ### a) 
 
