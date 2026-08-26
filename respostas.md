@@ -1,4 +1,3 @@
-```markdown
 # Atividade das Aulas 02 e 03
 
 **Nome:** Gabriel Lamarth Moreira Barbosa  
