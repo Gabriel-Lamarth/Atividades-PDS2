@@ -79,9 +79,9 @@ cout << *p1 << " " << *p2 << endl;
 
 ### Respostas
 
-* **a)** 
-* **b)** 
-* **c)** 
+* **a)** Primeiramente vai imprimir 42 42, e na segunda linha vai imprimir 53 53.
+* **b)** Isso acontece porque tanto o p1 quanto o p2 estão guardando o mesmo endereço de memória. Quando fazemos p2 = p1, o p2 passa a apontar exatamente para onde o p1 já estava apontando. Então, alterar o valor através do *p2 muda a caixinha na memória pra onde o p1 também está apontando.
+* **c)** delete p1;
 
 ---
 
@@ -103,11 +103,11 @@ int *p = new int;
 
 ### Respostas
 
-* **a)** 
-* **b)** 
-* **c)** 
-* **d)** 
-* **e)** 
+* **a)** Na Stack. Como é uma variável local comum, ela é gerenciada automaticamente pelo programa nessa região.
+* **b)** Na Stack. A variável ponteiro p em si é local, então o endereço que ela guarda fica na pilha.
+* **c)** Na Heap. Tudo o que a gente cria usando o operador new vai direto pra Heap.
+* **d)** delete p;
+* **e)** Porque as variáveis locais ficam na Stack, e a própria linguagem se encarrega de criar e destruir elas automaticamente quando a função termina o seu escopo. Já as coisas alocadas na Heap exigem regulagem manual.
 
 ---
 
@@ -136,13 +136,22 @@ a = &b;
 
 ### Respostas
 
-* **a)** 
-* **b)** 
-* **c)** 
+* **a)** Ao final, o valor de b passa a ser 30.
+* **b)** Na Heap.
+* **c)** O erro é o vazamento de memória (memory leak), pois sobrescrevemos o endereço mantido por a sem antes liberar o bloco que tinha sido alocado na Heap com new.
 * **d)**
 
 ```cpp
-// Código corrigido
+int *a;
+int b = 10;
+
+a = new int;
+*a = 20;
+
+delete a; // Libera a memória alocada antes de mudar pra onde o ponteiro aponta
+
+a = &b;
+*a = 30;
 ```
 
 ---
@@ -161,14 +170,20 @@ int *p = nullptr;
 
 ### Respostas
 
-* **a)** 
-* **b)** 
+* **a)** O nullptr representa um ponteiro nulo, ou seja, ele indica explicitamente que o ponteiro não está apontando para nenhum endereço válido de memória no momento.
+* **b)** Não é válido. Fazer isso gera um Segmentation Fault, porque há tentativa de desreferenciar um ponteiro que não tem um endereço válido associado para guardar esse valor.
 * **c)**
 
 ```cpp
 int *p = nullptr;
 
-// complete aqui
+p = new int; // Aloca memória
+
+if (p != nullptr) { // Verifica se alocou com sucesso
+    *p = 90;        // Armazena o valor
+    delete p;       // Libera a memória
+    p = nullptr;    // Boa prática para não deixar ponteiro solto
+}
 ```
 
 ---
@@ -188,17 +203,42 @@ Na resposta, explique por que a liberação deve ser feita com `delete[]`, e nã
 
 ```cpp
 #include <iostream>
-
 using namespace std;
 
 int main() {
-    // Insira a solução aqui
-    
+    int n;
+    cout << "Digite o tamanho do vetor: ";
+    cin >> n;
+
+    if (n <= 0) {
+        cout << "Tamanho invalido!" << endl;
+        return 1;
+    }
+
+    // Aloque dinamicamente um vetor de n inteiros
+    int *vetor = new int[n];
+
+    // Leia os n elementos
+    for (int i = 0; i < n; i++) {
+        cin >> vetor[i];
+    }
+
+    // Calcule a soma dos elementos
+    int soma = 0;
+    for (int i = 0; i < n; i++) {
+        soma += vetor[i];
+    }
+
+    cout << "Soma: " << soma << endl;
+
+    // Libere corretamente a memória alocada
+    delete[] vetor;
+
     return 0;
 }
 ```
 
-**Explicação sobre `delete[]`:**
+**Explicação sobre `delete[]`:** Deve ser usado o delete[] porque foi alocado um bloco/array contínuo de dados usando new[]. Ao usar apenas delete comum, o compilador liberaria apenas a memória do primeiro elemento do vetor, deixando o restante alocado (causando vazamento de memória e comportamento indefinido).
 
 ---
 
@@ -243,8 +283,14 @@ int main() {
 
 ### Respostas
 
-* **a)** 
-* **b)** 
-* **c)** 
-* **d)** 
+* **a)**
+10
+11
+12
+
+* **b)** Porque a função addOneValue recebe o parâmetro por valor. Isso significa que o C++ faz uma cópia da variável n para dentro da variável local x da função. Alterar o x lá dentro modifica só essa cópia e não mexe na variável original da main.
+* **c)** addOneReference: Recebe um apelido/menciona diretamente a variável original (int &x). Qualquer alteração dentro da função afeta diretamente o local de memória de n.
+
+addOnePointer: Recebe o endereço de memória de n (int *x). Ao usar o operador de desreferenciação (*x)++, a função acessa diretamente o valor armazenado naquele endereço e altera n.
+* **d)** A referência é preferível para passar objetos grandes sem copiar ou quando queremos alterar o valor original de forma mais limpa, legível e sem sintaxe chata de ponteiros. Já o ponteiro quando a passagem for opcional (permitindo passar nullptr), quando precisarmos de aritmética de ponteiros ou ao lidar com alocação dinâmica de memória.
 ```
